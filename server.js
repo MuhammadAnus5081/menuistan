@@ -19,7 +19,7 @@ const session = require('express-session');
 const emailRoute = require('./src/routes/emailRoute');
 const file=require('./src/routes/routes');
 const user = require ('./src/routes/user');
-
+const review = require('./src/routes/reviewRoute')
 app.use(express.json());
 app.use(cors()); // Use the cors middleware
 const fs = require('fs');
@@ -42,7 +42,7 @@ app.use('/',emailRoute);
 //app.use('/otp' , otp);
 app.use('/file', file);
 app.use('/user', user);
-//app.use('/', data);
+app.use('/review', review);
 global.__basedir = __dirname;
 
 
