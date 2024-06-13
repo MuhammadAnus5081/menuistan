@@ -19,7 +19,10 @@ const session = require('express-session');
 const emailRoute = require('./src/routes/emailRoute');
 const file=require('./src/routes/routes');
 const user = require ('./src/routes/user');
-const review = require('./src/routes/reviewRoute')
+const review = require('./src/routes/reviewRoute');
+const restaurant = require('./src/routes/restaurantRoute');
+const menuItemRoutes = require('./src/routes/menuItemRoute');
+const fileImage =  require('./src/routes/index.js');
 app.use(express.json());
 app.use(cors()); // Use the cors middleware
 const fs = require('fs');
@@ -28,6 +31,7 @@ express.urlencoded({ extended: true })
 // Middleware setup
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 
 app.use(session({
   secret: 'SECRET', // Replace with your own secret key
@@ -39,10 +43,13 @@ app.use(passport.session());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/',emailRoute);
+app.use('/', menuItemRoutes);
 //app.use('/otp' , otp);
 app.use('/file', file);
 app.use('/user', user);
 app.use('/review', review);
+app.use('/', restaurant)
+app.use('/', fileImage)
 global.__basedir = __dirname;
 
 

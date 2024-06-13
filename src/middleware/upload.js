@@ -4,18 +4,13 @@ const maxSize = 30 * 1024 * 1024; // Maximum file size
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './resources/static/assets/uploads/'); // Set your destination directory here
+    cb(null, 'resources/static/assets/uploads');
   },
   filename: (req, file, cb) => {
-    const userId = req.body.userId || 'defaultUserId'; // Fallback if userId is not provided
-    const jobId = req.body.jobId || 'defaultJobId'; // Fallback if jobId is not provided
-    const uniqueId = uuid.v4(); // Generate a unique identifier
-
-    // Construct the filename with userId, jobId, and a unique identifier
-    const fileName = `${userId}_${jobId}_${uniqueId}_${file.originalname}`;
-    
-    cb(null, fileName); // Use the constructed filename
-  },
+    const ext = path.extname(file.originalname);
+    const filename = path.basename(file.originalname, ext) + '-' + Date.now() + ext;
+    cb(null, filename);
+  }
 });
 
 const uploadFile = multer({

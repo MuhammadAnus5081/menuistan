@@ -72,7 +72,7 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ status: false, message: 'Email is already registered' });
     }
 
-    // Proceed with file upload
+   // Proceed with file upload
     upload(req, res, async (err) => {
       if (err) {
         return res.status(400).json({ error: err.message });
@@ -102,7 +102,8 @@ const registerUser = async (req, res) => {
 
       res.status(200).json({ status: true, message: 'User registered successfully', newUser });
     });
-  } catch (error) {
+  } 
+  catch (error) {
     console.error(error);
     res.status(500).json({ status: false, message: 'Internal server error' });
   }
