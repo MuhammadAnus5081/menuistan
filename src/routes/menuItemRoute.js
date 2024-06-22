@@ -1,5 +1,4 @@
 const express = require('express');
-const multer = require('multer');
 const {
   createMenuItem,
   getAllMenuItems,
@@ -7,17 +6,14 @@ const {
   updateMenuItem,
   deleteMenuItem
 } = require('../controller/menuItemController');
+const validateMenuItem = require('../middleware/validateMenuItem');
 
 const router = express.Router();
-const upload = multer({
-  dest: 'resources/static/assets/uploads',
-  limits: { fileSize: 10 * 1024 * 1024 }
-});
 
-router.post('/menuItem', upload.single('imageFile'), createMenuItem);
+router.post('/menuItem', validateMenuItem, createMenuItem);
 router.get('/menuItem', getAllMenuItems);
 router.get('/menuItem/:id', getMenuItemById);
-router.put('/menuItem/:id', upload.single('imageFile'), updateMenuItem);
+router.put('/menuItem/:id', validateMenuItem ,updateMenuItem);
 router.delete('/menuItem/:id', deleteMenuItem);
 
 module.exports = router;

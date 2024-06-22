@@ -1,26 +1,15 @@
-// routes.js
-
 const express = require('express');
+const {
+    registerUser,
+    loginUser,
+    forgotPassword,
+} = require('../controller/userController');
+const validateUser = require('../middleware/validateUser');
+
 const router = express.Router();
-const userController = require('../controller/userController');
 
-
-// Register a new user
-router.post('/signup', userController.registerUser);
-
-// Login
-router.post('/login', userController.loginUser);
-
-// Forgot Password
-router.put('/forgetpassword', userController.forgotPassword);
-//update
-//router.put('/updateuser/:id', userController.updateUser);
-// Logout
-//router.get('/logout', userController.logoutUser);
-
-// Get all users
-//router.get('/webusers', userController.getAllUsers);
-
-//router.delete('/webdelete/:id', userController.deleteUser)
+router.post('/signup', validateUser, registerUser);
+router.post('/login', loginUser);
+router.put('/forgetpassword', forgotPassword);
 
 module.exports = router;

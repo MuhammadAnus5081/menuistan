@@ -73,13 +73,17 @@ db.once("open", function() {
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+
+// Middleware to parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true })); // or bodyParser.urlencoded({ extended: true }) if using body-parser separately
+
 //
 //app.use(cors(corsOptions));
 
 const initRoutes = require("./src/routes");
 
 app.use(express.urlencoded({ extended: true }));
-initRoutes(app);
+//initRoutes(app);
 
 const port = process.env.PORT || 5000;
 const start = async () => {
